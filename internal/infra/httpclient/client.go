@@ -11,7 +11,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/google/uuid"
 	"github.com/ryanmogauro/ghostman/internal/domain"
 	"github.com/ryanmogauro/ghostman/internal/infra/storeage"
 )
@@ -118,7 +117,6 @@ func (c *Client) Send(args []string, db *sql.DB) (domain.Response, error) {
 		}
 	}
 	req := domain.Request{
-		ID:        uuid.New().String(),
 		Method:    verb,
 		URL:       url,
 		Headers:   headerMap,

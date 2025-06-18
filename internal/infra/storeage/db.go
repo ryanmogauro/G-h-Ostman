@@ -15,7 +15,7 @@ func InitDB(path string) (*sql.DB, error) {
 
 	createTable := `
 	CREATE TABLE IF NOT EXISTS requests (
-		id TEXT PRIMARY KEY,
+		id INTEGER PRIMARY KEY AUTOINCREMENT,
 		method TEXT,
 		url TEXT,
 		body TEXT,

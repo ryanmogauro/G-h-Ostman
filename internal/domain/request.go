@@ -3,7 +3,7 @@ package domain
 import "time"
 
 type Request struct {
-	ID        string
+	ID        int
 	Method    string //GET, POST, etc
 	URL       string
 	Body      []byte

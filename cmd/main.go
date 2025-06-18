@@ -37,14 +37,13 @@ func main() {
 		fmt.Printf("Response: %v\n", response)
 
 	case "HISTORY":
-		fmt.Println("Made it into history case")
 		requests, err := storeage.GetHistory(db)
 		if err != nil {
 			fmt.Printf("Error: %v\n", err)
 			os.Exit(1)
 		}
 		for _, request := range requests {
-			fmt.Printf("ID: %s\n", request.ID)
+			fmt.Printf("ID: %v \t URL: %v \t Method: %v \t \n", request.ID, request.URL, request.Method)
 		}
 	}
 }

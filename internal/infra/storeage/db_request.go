@@ -6,14 +6,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/google/uuid"
 	"github.com/ryanmogauro/ghostman/internal/domain"
 	_ "modernc.org/sqlite"
 )
 
 // Adds request to user's request history
 func InsertRequest(db *sql.DB, req domain.Request) error {
-	id := uuid.New().String()
 	url := req.URL
 	method := req.Method
 	body := req.Body
@@ -30,11 +28,11 @@ func InsertRequest(db *sql.DB, req domain.Request) error {
 	fmt.Println("Header string: ", headerString)
 
 	query := `
-	INSERT INTO requests (id, url, method, body, headers, created_at)
-	VALUES (?, ?, ?, ?, ?, ?)
+	INSERT INTO requests (url, method, body, headers, created_at)
+	VALUES (?, ?, ?, ?, ?)
 	`
 
-	_, err := db.Exec(query, id, url, method, body, headerString, createdAt)
+	_, err := db.Exec(query, url, method, body, headerString, createdAt)
 	if err != nil {
 		return err
 	}
