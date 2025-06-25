@@ -13,7 +13,7 @@ import (
 
 func main() {
 	if len(os.Args) < 3 {
-		fmt.Println("Usage: ghostman <method> <url> [flags]")
+		fmt.Println("Usage: ghostman <method> <url> [-d <data>] [-H <headers>] [-timeout <timeout>]")
 		fmt.Println("OR ghostman history")
 		fmt.Println("OR ghostman rerun <id>")
 		os.Exit(1)
@@ -28,22 +28,6 @@ func main() {
 	verb := strings.ToUpper(os.Args[2])
 
 	switch verb {
-	case "GET":
-		// Add https:// if no scheme is specified
-		client := httpclient.New()
-		//CHANGE TO PROCESSING REQUESTS, NOT ARGS
-
-		request, err := domain.ArgsToRequest(os.Args)
-		if err != nil {
-			fmt.Printf("Error: %v\n", err)
-			os.Exit(1)
-		}
-		response, err := client.Send(request, db)
-		if err != nil {
-			fmt.Printf("Error: %v\n", err)
-			os.Exit(1)
-		}
-		fmt.Printf("Response: %v\n", response)
 
 	case "HISTORY":
 		requests, err := storeage.GetHistory(db)
@@ -75,5 +59,19 @@ func main() {
 		}
 		fmt.Printf("Response: %v\n", response)
 
+	default:
+		client := httpclient.New()
+
+		request, err := domain.ArgsToRequest(os.Args)
+		if err != nil {
+			fmt.Printf("Error: %v\n", err)
+			os.Exit(1)
+		}
+		response, err := client.Send(request, db)
+		if err != nil {
+			fmt.Printf("Error: %v\n", err)
+			os.Exit(1)
+		}
+		fmt.Printf("Response: %v\n", response)
 	}
 }

@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"slices"
 	"strings"
 	"time"
 )
@@ -31,6 +32,12 @@ type Request struct {
 func ArgsToRequest(osArgs []string) (Request, error) {
 	verb := strings.ToUpper(os.Args[2])
 	url := os.Args[3]
+
+	var allowedVerbs = []string{"GET", "POST", "PUT", "DELETE", "PATCH", "HEAD", "OPTIONS"}
+
+	if !slices.Contains(allowedVerbs, verb) {
+		return Request{}, fmt.Errorf("invalid verb: %s \nAllowed verbs: %v", verb, allowedVerbs)
+	}
 
 	if !strings.HasPrefix(url, "http://") && !strings.HasPrefix(url, "https://") {
 		url = "https://" + url
