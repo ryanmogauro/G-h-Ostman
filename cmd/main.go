@@ -40,7 +40,6 @@ func main() {
 		}
 	case "RERUN":
 		id, err := strconv.Atoi(os.Args[3])
-		fmt.Println("ID: ", id)
 		if err != nil {
 			fmt.Printf("Error: %v\n", err)
 			os.Exit(1)
@@ -72,6 +71,11 @@ func main() {
 			fmt.Printf("Error: %v\n", err)
 			os.Exit(1)
 		}
-		fmt.Printf("Response: %v\n", response)
+		formattedResponse, err := response.FormatResponse()
+		if err != nil {
+			fmt.Printf("Error: %v\n", err)
+			os.Exit(1)
+		}
+		fmt.Printf("Response: %v\n", formattedResponse)
 	}
 }
