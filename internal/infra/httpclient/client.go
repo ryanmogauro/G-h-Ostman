@@ -84,9 +84,5 @@ func (c *Client) Send(req domain.Request, db *sql.DB) (domain.Response, error) {
 		os.Exit(1)
 	}
 
-	for k, v := range resp.Headers {
-		fmt.Printf("%s: %s\n", k, v)
-	}
-
 	return resp, nil
 }

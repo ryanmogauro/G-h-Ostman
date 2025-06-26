@@ -2,7 +2,6 @@ package storeage
 
 import (
 	"database/sql"
-	"fmt"
 	"strings"
 	"time"
 
@@ -24,8 +23,6 @@ func InsertRequest(db *sql.DB, req domain.Request) error {
 		header := k + v + "\n"
 		headerString += header
 	}
-
-	fmt.Println("Header string: ", headerString)
 
 	query := `
 	INSERT INTO requests (url, method, body, headers, created_at)
@@ -126,6 +123,5 @@ func GetRequest(db *sql.DB, id int) (domain.Request, error) {
 	if err != nil {
 		return domain.Request{}, err
 	}
-	fmt.Println("Request: ", req)
 	return req, nil
 }
