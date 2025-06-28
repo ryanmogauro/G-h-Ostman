@@ -12,7 +12,7 @@ import (
 )
 
 func main() {
-	if len(os.Args) < 3 {
+	if len(os.Args) < 2 {
 		fmt.Println("Usage: ghostman <method> <url> [-d <data>] [-H <headers>] [-timeout <timeout>]")
 		fmt.Println("OR ghostman history")
 		fmt.Println("OR ghostman rerun <id>")
