@@ -11,6 +11,8 @@ import (
 	"github.com/ryanmogauro/ghostman/internal/infra/storeage"
 )
 
+var version = "1.0.0"
+
 func main() {
 	if len(os.Args) < 2 {
 		fmt.Println("Usage: ghostman <method> <url> [-d <data>] [-H <headers>] [-timeout <timeout>]")
@@ -28,6 +30,10 @@ func main() {
 	verb := strings.ToUpper(os.Args[1])
 
 	switch verb {
+
+	case "VERSION", "V", "--V":
+		fmt.Printf("Ghostman %s\n", version)
+		os.Exit(0)
 
 	case "HISTORY":
 		requests, err := storeage.GetHistory(db)
