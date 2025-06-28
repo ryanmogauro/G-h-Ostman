@@ -25,7 +25,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	verb := strings.ToUpper(os.Args[2])
+	verb := strings.ToUpper(os.Args[1])
 
 	switch verb {
 
@@ -39,7 +39,11 @@ func main() {
 			fmt.Printf("ID: %v \t URL: %v \t Method: %v \t \n", request.ID, request.URL, request.Method)
 		}
 	case "RERUN":
-		id, err := strconv.Atoi(os.Args[3])
+		if len(os.Args) < 3 {
+			fmt.Println("Usage: ghostman rerun <id>")
+			os.Exit(1)
+		}
+		id, err := strconv.Atoi(os.Args[2])
 		if err != nil {
 			fmt.Printf("Error: %v\n", err)
 			os.Exit(1)
@@ -56,9 +60,19 @@ func main() {
 			fmt.Printf("Error: %v\n", err)
 			os.Exit(1)
 		}
-		fmt.Printf("Response: %v\n", response)
+		formattedResponse, err := response.FormatResponse()
+		if err != nil {
+			fmt.Printf("Error: %v\n", err)
+			os.Exit(1)
+		}
+		fmt.Printf("Response: %v\n", formattedResponse)
 
 	default:
+		if len(os.Args) < 3 {
+			fmt.Println("Usage: ghostman <method> <url> [-d <data>] [-H <headers>] [-timeout <timeout>]")
+			os.Exit(1)
+		}
+
 		client := httpclient.New()
 
 		request, err := domain.ArgsToRequest(os.Args)

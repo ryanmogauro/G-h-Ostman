@@ -30,8 +30,8 @@ type Request struct {
 }
 
 func ArgsToRequest(osArgs []string) (Request, error) {
-	verb := strings.ToUpper(os.Args[2])
-	url := os.Args[3]
+	verb := strings.ToUpper(os.Args[1])
+	url := os.Args[2]
 
 	var allowedVerbs = []string{"GET", "POST", "PUT", "DELETE", "PATCH", "HEAD", "OPTIONS"}
 
